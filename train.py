@@ -249,7 +249,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
                         _, pred_attr = torch.max(label_output[i], 1)
                         running_label_corrects += float(
                             torch.sum(pred_attr == attr_labels[i].data).item()) / attr_class_number
-                    APR_loss = APR_factor * id_loss + attr_loss / attr_class_number
+                    APR_loss = id_loss + attr_loss / attr_class_number / APR_factor
                     # print(labels)
                 else:
                     part = {}
