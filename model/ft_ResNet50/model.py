@@ -33,6 +33,7 @@ class ClassBlock(nn.Module):
 	             return_f=False):
 		super(ClassBlock, self).__init__()
 		self.return_f = return_f
+		self.dropout = nn.Dropout(p=0.5)
 		add_block = []
 		if linear:
 			add_block += [nn.Linear(input_dim, num_bottleneck)]
@@ -62,6 +63,7 @@ class ClassBlock(nn.Module):
 			x = self.classifier(x)
 			return x, f
 		else:
+			x = self.dropout(x)
 			x = self.classifier(x)
 			return x
 
@@ -91,14 +93,14 @@ class ft_net(nn.Module):
 		
 		for c in range(self.attr_num + 1):
 			if c == self.attr_num:  # for identity classification
-				self.__setattr__('class_%d' % c, ClassBlock(self.num_ftrs, class_num, 0.5))
+				self.__setattr__('class_%d' % c, ClassBlock(self.num_ftrs, class_num, 0, num_bottleneck=256))
 			# nn.Sequential(nn.Linear(self.num_ftrs, num_bottleneck),
 			# 		   nn.BatchNorm1d(num_bottleneck),
 			# 		   nn.LeakyReLU(0.1),
 			# 		   nn.Dropout(p=dropout),
 			# 		   nn.Linear(num_bottleneck, self.id_num)))
 			else:
-				self.__setattr__('class_%d' % c, ClassBlock(self.num_ftrs, 2, 0.9, num_bottleneck=128))
+				self.__setattr__('class_%d' % c, ClassBlock(self.num_ftrs, 2, 0.5, num_bottleneck=128))
 	
 	def forward(self, x):
 		x = self.model.conv1(x)

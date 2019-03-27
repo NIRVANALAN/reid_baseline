@@ -34,8 +34,4 @@ core
 *.pth
 .idea
 checkpoints/
-datafolder/
-doc/
-log/
 mat/
-net/
