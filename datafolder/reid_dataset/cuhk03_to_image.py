@@ -5,7 +5,7 @@ import os
 import zipfile
 import shutil
 import requests
-import h5py
+# import h5py
 import numpy as np
 from PIL import Image
 import argparse
