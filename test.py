@@ -156,7 +156,7 @@ def extract_feature(model, dataloaders):
 		n, c, h, w = img.size()
 		count += n
 		print(count)
-		ff = torch.FloatTensor(n, 512).zero_()
+		ff = torch.FloatTensor(n, 256).zero_()
 		
 		if opt.PCB:
 			ff = torch.FloatTensor(n, 2048, 6).zero_()  # we have six parts
