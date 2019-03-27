@@ -75,7 +75,7 @@ class ft_net(nn.Module):
 	# after reranking:
 	# top1:0.889549 top5:0.936758 top10:0.951306 mAP:0.829203
 	
-	def __init__(self, class_num, attr_num=0, droprate=0.5, stride=1):
+	def __init__(self, class_num, attr_num=30, droprate=0.5, stride=1):
 		super(ft_net, self).__init__()
 		self.attr_num = attr_num
 		model_ft = models.resnet50(pretrained=True)
