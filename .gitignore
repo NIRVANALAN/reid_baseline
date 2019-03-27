@@ -32,3 +32,10 @@ core
 *.npy
 *.pt
 *.pth
+.idea
+checkpoints/
+datafolder/
+doc/
+log/
+mat/
+net/
