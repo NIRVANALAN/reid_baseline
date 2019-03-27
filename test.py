@@ -214,7 +214,7 @@ print('-------test-----------')
 if opt.use_dense:
     model_structure = ft_net_dense(opt.nclasses)
 else:
-    model_structure = ft_net(opt.nclasses, opt.nlabels, stride=opt.stride)
+    model_structure = ft_net(opt.nclasses, stride=opt.stride)
 
 if opt.PCB:
     model_structure = PCB(opt.nclasses)
