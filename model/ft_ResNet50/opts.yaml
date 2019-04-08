@@ -5,7 +5,7 @@ data_dir: ../../../dataset
 droprate: 0.5
 erasing_p: 0.5
 fp16: false
-gpu_ids: '0'
+gpu_ids: '2'
 lr: 0.05
 name: ft_ResNet50
 nclasses: 751

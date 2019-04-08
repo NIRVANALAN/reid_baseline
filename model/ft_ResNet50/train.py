@@ -35,7 +35,7 @@ except ImportError:  # will be 3.x series
 # Options
 # --------
 parser = argparse.ArgumentParser(description='Training')
-parser.add_argument('--gpu_ids', default='0', type=str,
+parser.add_argument('--gpu_ids', default='1', type=str,
                     help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--name', default='ft_ResNet50',
                     type=str, help='output model name')
@@ -189,7 +189,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
         print('-' * 10)
 
         # Each epoch has a training and validation phase
-        for phase in ['train', 'val']:
+        # for phase in ['train', 'val']:
+        for phase in ['train']:
             if phase == 'train':
                 scheduler.step()
                 model.train(True)  # Set model to training mode
@@ -249,7 +250,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
                         _, pred_attr = torch.max(label_output[i], 1)
                         running_label_corrects += float(
                             torch.sum(pred_attr == attr_labels[i].data).item()) / attr_class_number
-                    APR_loss = APR_factor * id_loss + attr_loss / attr_class_number
+                    APR_loss = id_loss * APR_factor + attr_loss / attr_class_number 
+#                    APR_loss = id_loss
                     # print(labels)
                 else:
                     part = {}
@@ -411,6 +413,7 @@ else:
 
 # Decay LR by a factor of 0.1 every 40 epochs
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
+#exp_lr_scheduler = lr_scheduler.MultiStepLR(optimizer_ft, [40,60,80], gamma=0.1, last_epoch=-1)
 
 ######################################################################
 # Train and evaluate
