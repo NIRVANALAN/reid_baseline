@@ -1,0 +1,919 @@
+This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0
+[Resize(size=(256, 128), interpolation=PIL.Image.BICUBIC), Pad(padding=10, fill=0, padding_mode=constant), RandomCrop(size=(256, 128), padding=0), RandomHorizontalFlip(p=0.5), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]), <random_erasing.RandomErasing object at 0x7f240e29cf28>]
+9.5367431640625e-07
+ft_net(
+  (model): ResNet(
+    (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+    (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace)
+    (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (layer1): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (layer2): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (layer3): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (4): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (5): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (layer4): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (fc): Linear(in_features=2048, out_features=1000, bias=True)
+  )
+  (class_0): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_1): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_2): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_3): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_4): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_5): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_6): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_7): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_8): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_9): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_10): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_11): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_12): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_13): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_14): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_15): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_16): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_17): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_18): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_19): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_20): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_21): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_22): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_23): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_24): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_25): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_26): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_27): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_28): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_29): Sequential(
+    (0): weighted_avg_pooling(
+      (part_detector_block): Sequential(
+        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+        (1): Sigmoid()
+      )
+    )
+    (1): ClassBlock(
+      (dropout): Dropout(p=0.5)
+      (add_block): Sequential(
+        (0): Linear(in_features=2048, out_features=128, bias=True)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (classifier): Sequential(
+        (0): Linear(in_features=128, out_features=2, bias=True)
+      )
+    )
+  )
+  (class_30): ClassBlock(
+    (dropout): Dropout(p=0.5)
+    (add_block): Sequential(
+      (0): Linear(in_features=2048, out_features=256, bias=True)
+      (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (classifier): Sequential(
+      (0): Linear(in_features=256, out_features=751, bias=True)
+    )
+  )
+)
+Epoch 0/59
+----------
+train Loss: 3.9958 Acc: 0.2892
+val Loss: 8.7004 Acc: 0.0009
+Training complete in 6m 0s
+
+Epoch 1/59
+----------
+train Loss: 1.1411 Acc: 0.7587
+val Loss: 10.3969 Acc: 0.0021
+Training complete in 11m 59s
+
+Epoch 2/59
+----------
+train Loss: 0.4841 Acc: 0.8970
+val Loss: 11.4635 Acc: 0.0021
+Training complete in 17m 59s
+
+Epoch 3/59
+----------
+train Loss: 0.2855 Acc: 0.9332
+val Loss: 12.4569 Acc: 0.0039
+Training complete in 24m 1s
+
+Epoch 4/59
+----------
+train Loss: 0.1850 Acc: 0.9586
+val Loss: 12.5985 Acc: 0.0027
+Training complete in 30m 3s
+
+Epoch 5/59
+----------
+train Loss: 0.1295 Acc: 0.9715
+val Loss: 13.0352 Acc: 0.0024
+Training complete in 36m 4s
+
+Epoch 6/59
+----------
+train Loss: 0.0856 Acc: 0.9829
+val Loss: 13.2218 Acc: 0.0018
+Training complete in 42m 4s
+
+Epoch 7/59
+----------
+train Loss: 0.0591 Acc: 0.9884
+val Loss: 13.2959 Acc: 0.0021
+Training complete in 48m 5s
+
+Epoch 8/59
+----------
+train Loss: 0.0391 Acc: 0.9937
+val Loss: 13.5755 Acc: 0.0024
+Training complete in 54m 6s
+
+Epoch 9/59
+----------
+train Loss: 0.0328 Acc: 0.9947
+val Loss: 13.6964 Acc: 0.0027
+Training complete in 60m 13s
+
+Epoch 10/59
+----------
+train Loss: 0.0231 Acc: 0.9974
+val Loss: 13.9182 Acc: 0.0030
+Training complete in 66m 14s
+
+Epoch 11/59
+----------
+train Loss: 0.0128 Acc: 0.9985
+val Loss: 13.7786 Acc: 0.0018
+Training complete in 72m 15s
+
+Epoch 12/59
+----------
+train Loss: 0.0103 Acc: 0.9988
+val Loss: 13.8035 Acc: 0.0024
+Training complete in 78m 15s
+
+Epoch 13/59
+----------
+train Loss: 0.0091 Acc: 0.9986
+val Loss: 13.4233 Acc: 0.0015
+Training complete in 84m 16s
+
+Epoch 14/59
+----------
+train Loss: 0.0082 Acc: 0.9989
+val Loss: 13.8642 Acc: 0.0024
+Training complete in 90m 17s
+
+Epoch 15/59
+----------
+train Loss: 0.0063 Acc: 0.9993
+val Loss: 13.5563 Acc: 0.0030
+Training complete in 96m 21s
+
+Epoch 16/59
+----------
+train Loss: 0.0073 Acc: 0.9987
+val Loss: 13.5286 Acc: 0.0030
+Training complete in 102m 23s
+
+Epoch 17/59
+----------
+train Loss: 0.0075 Acc: 0.9988
+val Loss: 13.4379 Acc: 0.0021
+Training complete in 108m 23s
+
+Epoch 18/59
+----------
+train Loss: 0.0055 Acc: 0.9993
+val Loss: 13.5093 Acc: 0.0024
+Training complete in 114m 23s
+
+Epoch 19/59
+----------
+train Loss: 0.0052 Acc: 0.9993
+val Loss: 13.3807 Acc: 0.0024
+Training complete in 120m 32s
+
+Epoch 20/59
+----------
+train Loss: 0.0047 Acc: 0.9993
+val Loss: 13.4273 Acc: 0.0021
+Training complete in 126m 34s
+
+Epoch 21/59
+----------
+train Loss: 0.0043 Acc: 0.9994
+val Loss: 13.1312 Acc: 0.0027
+Training complete in 132m 35s
+
+Epoch 22/59
+----------
+train Loss: 0.0042 Acc: 0.9993
+val Loss: 13.1568 Acc: 0.0021
+Training complete in 138m 37s
+
+Epoch 23/59
+----------
+train Loss: 0.0041 Acc: 0.9993
+val Loss: 13.1600 Acc: 0.0021
+Training complete in 144m 37s
+
+Epoch 24/59
+----------
+train Loss: 0.0037 Acc: 0.9994
+val Loss: 13.1240 Acc: 0.0030
+Training complete in 150m 41s
+
+Epoch 25/59
+----------
+train Loss: 0.0037 Acc: 0.9994
+val Loss: 12.9244 Acc: 0.0036
+Training complete in 156m 41s
+
+Epoch 26/59
+----------
+train Loss: 0.0036 Acc: 0.9994
+val Loss: 12.9385 Acc: 0.0033
+Training complete in 162m 56s
+
+Epoch 27/59
+----------
+train Loss: 0.0033 Acc: 0.9994
+val Loss: 12.8446 Acc: 0.0033
+Training complete in 169m 21s
+
+Epoch 28/59
+----------
+train Loss: 0.0035 Acc: 0.9993
+val Loss: 12.7659 Acc: 0.0021
+Training complete in 175m 40s
+
+Epoch 29/59
+----------
+train Loss: 0.0034 Acc: 0.9994
+val Loss: 12.6830 Acc: 0.0030
+Training complete in 181m 59s
+
+Epoch 30/59
+----------
+train Loss: 0.0035 Acc: 0.9994
+val Loss: 12.6059 Acc: 0.0030
+Training complete in 189m 22s
+
+Epoch 31/59
+----------

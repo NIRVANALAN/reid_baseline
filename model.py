@@ -32,9 +32,10 @@ class ClassBlock(nn.Module):
 	def __init__(self, input_dim, class_num, droprate, relu=False, bnorm=True, num_bottleneck=512, linear=True,
 	             return_f=False):
 		super(ClassBlock, self).__init__()
+		
 		self.return_f = return_f
 		self.dropout = nn.Dropout(p=0.5)
-		add_block = []
+		add_block = []  # for dimensionality reduction
 		if linear:
 			add_block += [nn.Linear(input_dim, num_bottleneck)]
 		else:
@@ -64,8 +65,28 @@ class ClassBlock(nn.Module):
 			return x, f
 		else:
 			x = self.dropout(x)
+			# if self.part_detector_weighted:
+			# 	weight = self.part_detector_block(x)
+			# 	x = weight * x / (x.shape[0] * x.shape[1])
 			x = self.classifier(x)
 			return x
+
+
+class weighted_avg_pooling(nn.Module):
+	def __init__(self, num_ftrs=2048):
+		super().__init__()
+		self.num_ftrs = num_ftrs
+		part_detector_block = []
+		part_detector_block += [nn.Conv2d(self.num_ftrs, self.num_ftrs, 1)]  # 1*1 conv layer
+		part_detector_block += [nn.Sigmoid()]
+		part_detector_block = nn.Sequential(*part_detector_block)
+		part_detector_block.apply(weights_init_kaiming)
+		self.part_detector_block = part_detector_block
+	
+	def forward(self, x):
+		mask = self.part_detector_block(x)
+		mask = torch.sum(mask * x, dim=(3, 2)) / (x.shape[-2] * x.shape[-1])  # 32 * 2048
+		return mask
 
 
 # Define the ResNet50-based Model
@@ -75,7 +96,7 @@ class ft_net(nn.Module):
 	# after reranking:
 	# top1:0.889549 top5:0.936758 top10:0.951306 mAP:0.829203
 	
-	def __init__(self, class_num, attr_num=30, droprate=0.5, stride=1):
+	def __init__(self, class_num, attr_num=30, droprate=0.5, stride=1, weight_avg=False):
 		super(ft_net, self).__init__()
 		self.attr_num = attr_num
 		model_ft = models.resnet50(pretrained=True)
@@ -87,6 +108,7 @@ class ft_net(nn.Module):
 		model_ft.avgpool = nn.AdaptiveAvgPool2d((1, 1))
 		self.model = model_ft
 		self.num_ftrs = 2048
+		
 		# torch.nn.KLDivLoss
 		
 		# self.classifier = ClassBlock(2048, class_num, droprate)
@@ -100,7 +122,8 @@ class ft_net(nn.Module):
 			# 		   nn.Dropout(p=dropout),
 			# 		   nn.Linear(num_bottleneck, self.id_num)))
 			else:
-				self.__setattr__('class_%d' % c, ClassBlock(self.num_ftrs, 2, 0.5, num_bottleneck=128))
+				self.__setattr__('class_%d' % c, nn.Sequential(weighted_avg_pooling(num_ftrs=self.num_ftrs),
+				                                               ClassBlock(self.num_ftrs, 2, 0, num_bottleneck=128)))
 	
 	def forward(self, x):
 		x = self.model.conv1(x)
@@ -109,12 +132,19 @@ class ft_net(nn.Module):
 		x = self.model.maxpool(x)
 		x = self.model.layer1(x)
 		x = self.model.layer2(x)
-		x = self.model.layer3(x)
-		x = self.model.layer4(x)
+		x = self.model.layer3(x)  # batch * 1024 * 18 * 9
+		attr_x = x  # 2 branch
+		x = self.model.layer4(x)  # batch * 2048 * 9 * 5
+		attr_x = self.model.layer4(attr_x)
+		
 		x = self.model.avgpool(x)
-		x = x.view(x.size(0), x.size(1))
+		x = x.view(x.size(0), x.size(1))  # batch * 2048
 		# x = self.classifier(x)
-		return list(self.__getattr__('class_%d' % c)(x) for c in range(self.attr_num + 1)), x
+		# return list(self.__getattr__('class_%d' % c)(x) for c in range(self.attr_num + 1)), x
+		attr_output = list(self.__getattr__('class_%d' % c)(attr_x) for c in range(self.attr_num))
+		id_output = self.__getattr__('class_{}'.format(self.attr_num))(x)
+		attr_output.append(id_output)  # cat two output
+		return attr_output, x
 
 
 # Define the DenseNet121-based Model

@@ -701,3 +701,124 @@ Training complete in 45m 50s
 
 Epoch 36/59
 ----------
+train Loss: 0.0036 Acc: 0.9994
+Training complete in 47m 6s
+
+Epoch 37/59
+----------
+train Loss: 0.0034 Acc: 0.9994
+Training complete in 48m 22s
+
+Epoch 38/59
+----------
+train Loss: 0.0035 Acc: 0.9994
+Training complete in 49m 39s
+
+Epoch 39/59
+----------
+train Loss: 0.0034 Acc: 0.9994
+Training complete in 50m 56s
+
+Epoch 40/59
+----------
+train Loss: 0.0033 Acc: 0.9994
+Training complete in 52m 12s
+
+Epoch 41/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 53m 29s
+
+Epoch 42/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 54m 47s
+
+Epoch 43/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 56m 3s
+
+Epoch 44/59
+----------
+train Loss: 0.0033 Acc: 0.9994
+Training complete in 57m 20s
+
+Epoch 45/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 58m 35s
+
+Epoch 46/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 59m 51s
+
+Epoch 47/59
+----------
+train Loss: 0.0030 Acc: 0.9994
+Training complete in 61m 7s
+
+Epoch 48/59
+----------
+train Loss: 0.0031 Acc: 0.9994
+Training complete in 62m 23s
+
+Epoch 49/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 63m 39s
+
+Epoch 50/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 64m 55s
+
+Epoch 51/59
+----------
+train Loss: 0.0030 Acc: 0.9994
+Training complete in 66m 12s
+
+Epoch 52/59
+----------
+train Loss: 0.0031 Acc: 0.9994
+Training complete in 67m 27s
+
+Epoch 53/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 68m 43s
+
+Epoch 54/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 69m 59s
+
+Epoch 55/59
+----------
+train Loss: 0.0030 Acc: 0.9994
+Training complete in 71m 15s
+
+Epoch 56/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 72m 31s
+
+Epoch 57/59
+----------
+train Loss: 0.0031 Acc: 0.9994
+Training complete in 73m 47s
+
+Epoch 58/59
+----------
+train Loss: 0.0032 Acc: 0.9994
+Training complete in 75m 5s
+
+Epoch 59/59
+----------
+train Loss: 0.0031 Acc: 0.9994
+Training complete in 76m 23s
+
+Training complete in 76m 23s
+This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0
+-------test-----------
