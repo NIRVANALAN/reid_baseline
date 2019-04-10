@@ -310,7 +310,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
 			# deep copy the model
 			if phase == 'val':
 				last_model_wts = model.state_dict()
-				if epoch % 10 == 0:
+				if epoch % 10 == 9:
 					save_network(model, epoch, opt.saved_version)
 				draw_curve(epoch)
 		
@@ -356,12 +356,12 @@ def draw_curve(current_epoch):
 # ---------------------------
 
 
-def save_network(network, epoch_label, saved_version):
+def save_network(network, epoch_label, saved_version=opt.saved_version):
 	save_filename = 'net_%s.pth' % epoch_label
 	if saved_version == 'None':
 		save_path = os.path.join('./model', name, save_filename)
 	else:
-		if not os.path.exists(os.path.join('./model', name, saved_version, save_filename)):
+		if not os.path.exists(os.path.join('./model', name, saved_version)):
 			os.mkdir(os.path.join('./model', name, saved_version))
 		save_path = os.path.join('./model', name, saved_version, save_filename)
 	print('saving {} at {}'.format(save_filename, save_path))
