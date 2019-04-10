@@ -33,6 +33,8 @@ parser.add_argument('--gpu_ids', default='0', type=str,
                     help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--which_epoch', default='last',
                     type=str, help='0,1,2,3...or last')
+parser.add_argument('--which_version', default='None',
+                    type=str, help='0,1,2,3...or last')
 parser.add_argument('--test_dir', default='../../../dataset/Market-1501/pytorch',
                     type=str, help='./test_data')
 parser.add_argument('--name', default='ft_ResNet50',
@@ -58,7 +60,7 @@ if 'nclasses' in config:  # tp compatible with old config files
 	opt.nclasses = config['nclasses']
 else:
 	opt.nclasses = 751
-	
+
 opt.nlabels = 30
 
 str_ids = opt.gpu_ids.split(',')
@@ -130,7 +132,10 @@ use_gpu = torch.cuda.is_available()
 
 
 def load_network(network):
-	save_path = os.path.join('./model', name, 'net_%s.pth' % opt.which_epoch)
+	if opt.which_version is not 'None':
+		save_path = os.path.join('./model', name, opt.which_version, 'net_%s.pth' % opt.which_epoch)
+	else:
+		save_path = os.path.join('./model', name, 'net_%s.pth' % opt.which_epoch)
 	network.load_state_dict(torch.load(save_path))
 	return network
 
@@ -241,7 +246,7 @@ else:
 	model.model.fc = nn.Sequential()
 	for i in range(opt.nlabels + 1):
 		model.__getattr__('class_' + str(i)).classifier = nn.Sequential()
-	# model.classifier.classifier = nn.Sequential()
+# model.classifier.classifier = nn.Sequential()
 
 # Change to test mode
 model = model.eval()
