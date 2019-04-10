@@ -22,6 +22,7 @@ import torch.backends.cudnn as cudnn
 import matplotlib
 
 import pdb
+
 matplotlib.use('agg')
 # from PIL import Image
 
@@ -43,6 +44,8 @@ parser.add_argument('--name', default='ft_ResNet50',
                     type=str, help='output model name')
 parser.add_argument('--load', default='None',
                     type=str, help='load pre-trained .pth')
+parser.add_argument('--saved_version', default='None',
+                    type=str, help='dir to saved trained .pth')
 parser.add_argument('--data_dir', default='../../../dataset',
                     type=str, help='training dir path')
 parser.add_argument('--train_all', action='store_true',
@@ -73,7 +76,7 @@ for str_id in str_ids:
 
 # set gpu ids
 if len(gpu_ids) > 0:
-#	torch.cuda.set_device(gpu_ids[0])
+	#	torch.cuda.set_device(gpu_ids[0])
 	cudnn.benchmark = True
 
 # two dataset dict
@@ -188,13 +191,13 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
 	# best_model_wts = model.state_dict()
 	# best_acc = 0.0
 	start = 0
-#	pdb.set_trace()
+	# pdb.set_trace()
 	if load != 'None':
 		print(load)
 		model.load_state_dict(torch.load(load, map_location=torch.device("cuda") if use_gpu else torch.device("cpu")))
 		start = int(load.split('/')[2].split('_')[1].split('.')[0])
 		print('loading from: {}'.format(load))
-		
+	
 	for epoch in range(start, num_epochs):
 		print('Epoch {}/{}'.format(epoch, num_epochs - 1))
 		print('-' * 10)
@@ -208,7 +211,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
 			else:
 				model.train(False)  # Set model to evaluate mode
 			
-			running_APR_loss = 0.0
 			# Rank@1:0.897862 Rank@5:0.964371 Rank@10:0.978325 mAP:0.741666
 			running_loss = 0.0
 			running_corrects = 0.0
@@ -286,7 +288,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
 							scaled_loss.backward()
 					else:
 						APR_loss.backward()
-						# id_loss.backward()
+					# id_loss.backward()
 					optimizer.step()
 				
 				# statistics
@@ -308,8 +310,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
 			# deep copy the model
 			if phase == 'val':
 				last_model_wts = model.state_dict()
-				if epoch % 10 == 9:
-					save_network(model, epoch)
+				if epoch % 10 == 0:
+					save_network(model, epoch, opt.saved_version)
 				draw_curve(epoch)
 		
 		time_elapsed = time.time() - since
@@ -354,9 +356,15 @@ def draw_curve(current_epoch):
 # ---------------------------
 
 
-def save_network(network, epoch_label):
+def save_network(network, epoch_label, saved_version):
 	save_filename = 'net_%s.pth' % epoch_label
-	save_path = os.path.join('./model', name, save_filename)
+	if saved_version == 'None':
+		save_path = os.path.join('./model', name, save_filename)
+	else:
+		if not os.path.exists(os.path.join('./model', name, saved_version, save_filename)):
+			os.mkdir(os.path.join('./model', name, saved_version))
+		save_path = os.path.join('./model', name, saved_version, save_filename)
+	print('saving {} at {}'.format(save_filename, save_path))
 	torch.save(network.cpu().state_dict(), save_path)
 	if torch.cuda.is_available():
 		network.cuda(gpu_ids[0])
@@ -370,15 +378,15 @@ def save_network(network, epoch_label):
 #
 
 if opt.use_dense:
-	model = ft_net_dense((id_class_number), opt.droprate)
+	model = ft_net_dense(id_class_number, opt.droprate)
 else:
-	model = ft_net((id_class_number), attr_class_number,
+	model = ft_net(id_class_number, attr_class_number,
 	               opt.droprate, opt.stride)
 
 if opt.PCB:
-	model = PCB((id_class_number))
+	model = PCB(id_class_number)
 
-opt.nclasses = (id_class_number)
+opt.nclasses = id_class_number
 
 print(model)
 

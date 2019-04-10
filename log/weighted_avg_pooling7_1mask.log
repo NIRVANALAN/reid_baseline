@@ -1,7 +1,40 @@
 This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0
-[Resize(size=(256, 128), interpolation=PIL.Image.BICUBIC), Pad(padding=10, fill=0, padding_mode=constant), RandomCrop(size=(256, 128), padding=0), RandomHorizontalFlip(p=0.5), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]), <random_erasing.RandomErasing object at 0x7f453879a4e0>]
-1.6689300537109375e-06
+[Resize(size=(256, 128), interpolation=PIL.Image.BICUBIC), Pad(padding=10, fill=0, padding_mode=constant), RandomCrop(size=(256, 128), padding=0), RandomHorizontalFlip(p=0.5), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]), <random_erasing.RandomErasing object at 0x7fa1f7af36d8>]
+1.1920928955078125e-06
 ft_net(
+  (branch2_layer4): Sequential(
+    (0): Bottleneck(
+      (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+      (downsample): Sequential(
+        (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (2): Bottleneck(
+      (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+  )
   (model): ResNet(
     (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
     (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
@@ -178,14 +211,14 @@ ft_net(
     (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
     (fc): Linear(in_features=2048, out_features=1000, bias=True)
   )
-  (class_0): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
+  (attr_weighted_pooling): weighted_avg_pooling(
+    (part_detector_block): Sequential(
+      (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+      (1): Sigmoid()
     )
-    (1): ClassBlock(
+  )
+  (class_0): Sequential(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -197,13 +230,7 @@ ft_net(
     )
   )
   (class_1): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -215,13 +242,7 @@ ft_net(
     )
   )
   (class_2): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -233,13 +254,7 @@ ft_net(
     )
   )
   (class_3): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -251,13 +266,7 @@ ft_net(
     )
   )
   (class_4): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -269,13 +278,7 @@ ft_net(
     )
   )
   (class_5): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -287,13 +290,7 @@ ft_net(
     )
   )
   (class_6): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -305,13 +302,7 @@ ft_net(
     )
   )
   (class_7): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -323,13 +314,7 @@ ft_net(
     )
   )
   (class_8): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -341,13 +326,7 @@ ft_net(
     )
   )
   (class_9): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -359,13 +338,7 @@ ft_net(
     )
   )
   (class_10): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -377,13 +350,7 @@ ft_net(
     )
   )
   (class_11): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -395,13 +362,7 @@ ft_net(
     )
   )
   (class_12): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -413,13 +374,7 @@ ft_net(
     )
   )
   (class_13): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -431,13 +386,7 @@ ft_net(
     )
   )
   (class_14): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -449,13 +398,7 @@ ft_net(
     )
   )
   (class_15): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -467,13 +410,7 @@ ft_net(
     )
   )
   (class_16): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -485,13 +422,7 @@ ft_net(
     )
   )
   (class_17): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -503,13 +434,7 @@ ft_net(
     )
   )
   (class_18): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -521,13 +446,7 @@ ft_net(
     )
   )
   (class_19): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -539,13 +458,7 @@ ft_net(
     )
   )
   (class_20): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -557,13 +470,7 @@ ft_net(
     )
   )
   (class_21): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -575,13 +482,7 @@ ft_net(
     )
   )
   (class_22): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -593,13 +494,7 @@ ft_net(
     )
   )
   (class_23): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -611,13 +506,7 @@ ft_net(
     )
   )
   (class_24): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -629,13 +518,7 @@ ft_net(
     )
   )
   (class_25): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -647,13 +530,7 @@ ft_net(
     )
   )
   (class_26): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -665,13 +542,7 @@ ft_net(
     )
   )
   (class_27): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -683,13 +554,7 @@ ft_net(
     )
   )
   (class_28): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -701,13 +566,7 @@ ft_net(
     )
   )
   (class_29): Sequential(
-    (0): weighted_avg_pooling(
-      (part_detector_block): Sequential(
-        (0): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
-        (1): Sigmoid()
-      )
-    )
-    (1): ClassBlock(
+    (0): ClassBlock(
       (dropout): Dropout(p=0.5)
       (add_block): Sequential(
         (0): Linear(in_features=2048, out_features=128, bias=True)
@@ -731,244 +590,46 @@ ft_net(
 )
 Epoch 0/59
 ----------
-train Loss: 3.7007 Acc: 0.3632
-val Loss: 9.0409 Acc: 0.0012
-Training complete in 5m 30s
+train Loss: 3.6950 Acc: 0.3659
+val Loss: 8.7259 Acc: 0.0024
+saving net_0.pth at ./model/ft_ResNet50/1mask/net_0.pth
+Training complete in 1m 55s
 
 Epoch 1/59
 ----------
-train Loss: 0.7444 Acc: 0.8654
-val Loss: 10.5420 Acc: 0.0030
-Training complete in 10m 58s
+train Loss: 0.7323 Acc: 0.8721
+val Loss: 10.1357 Acc: 0.0036
+Training complete in 3m 48s
 
 Epoch 2/59
 ----------
-train Loss: 0.1909 Acc: 0.9710
-val Loss: 11.0108 Acc: 0.0015
-Training complete in 16m 26s
+train Loss: 0.1941 Acc: 0.9695
+val Loss: 10.8166 Acc: 0.0030
+Training complete in 5m 39s
 
 Epoch 3/59
 ----------
-train Loss: 0.0651 Acc: 0.9915
-val Loss: 10.9330 Acc: 0.0015
-Training complete in 21m 54s
+train Loss: 0.0624 Acc: 0.9921
+val Loss: 10.9814 Acc: 0.0024
+Training complete in 7m 29s
 
 Epoch 4/59
 ----------
-train Loss: 0.0275 Acc: 0.9971
-val Loss: 11.3037 Acc: 0.0018
-Training complete in 27m 23s
+train Loss: 0.0272 Acc: 0.9971
+val Loss: 11.3056 Acc: 0.0015
+Training complete in 9m 19s
 
 Epoch 5/59
 ----------
-train Loss: 0.0157 Acc: 0.9989
-val Loss: 11.3328 Acc: 0.0024
-Training complete in 32m 50s
+train Loss: 0.0160 Acc: 0.9986
+val Loss: 11.3131 Acc: 0.0039
+Training complete in 11m 10s
 
 Epoch 6/59
 ----------
-train Loss: 0.0124 Acc: 0.9987
-val Loss: 11.3344 Acc: 0.0033
-Training complete in 38m 19s
+train Loss: 0.0098 Acc: 0.9992
+val Loss: 11.3284 Acc: 0.0018
+Training complete in 13m 0s
 
 Epoch 7/59
 ----------
-train Loss: 0.0080 Acc: 0.9992
-val Loss: 11.3290 Acc: 0.0027
-Training complete in 43m 47s
-
-Epoch 8/59
-----------
-train Loss: 0.0065 Acc: 0.9994
-val Loss: 11.3366 Acc: 0.0030
-Training complete in 49m 16s
-
-Epoch 9/59
-----------
-train Loss: 0.0057 Acc: 0.9994
-val Loss: 11.3502 Acc: 0.0030
-Training complete in 54m 47s
-
-Epoch 10/59
-----------
-train Loss: 0.0053 Acc: 0.9994
-val Loss: 11.3445 Acc: 0.0024
-Training complete in 60m 17s
-
-Epoch 11/59
-----------
-train Loss: 0.0048 Acc: 0.9994
-val Loss: 11.2813 Acc: 0.0030
-Training complete in 65m 47s
-
-Epoch 12/59
-----------
-train Loss: 0.0046 Acc: 0.9994
-val Loss: 11.2384 Acc: 0.0024
-Training complete in 71m 17s
-
-Epoch 13/59
-----------
-train Loss: 0.0044 Acc: 0.9994
-val Loss: 11.2647 Acc: 0.0030
-Training complete in 76m 47s
-
-Epoch 14/59
-----------
-train Loss: 0.0043 Acc: 0.9994
-val Loss: 11.2196 Acc: 0.0030
-Training complete in 82m 17s
-
-Epoch 15/59
-----------
-train Loss: 0.0041 Acc: 0.9994
-val Loss: 11.1804 Acc: 0.0024
-Training complete in 87m 47s
-
-Epoch 16/59
-----------
-train Loss: 0.0040 Acc: 0.9994
-val Loss: 11.1695 Acc: 0.0024
-Training complete in 93m 17s
-
-Epoch 17/59
-----------
-train Loss: 0.0038 Acc: 0.9994
-val Loss: 11.1557 Acc: 0.0027
-Training complete in 98m 47s
-
-Epoch 18/59
-----------
-train Loss: 0.0038 Acc: 0.9994
-val Loss: 11.0878 Acc: 0.0027
-Training complete in 104m 17s
-
-Epoch 19/59
-----------
-train Loss: 0.0037 Acc: 0.9994
-val Loss: 11.0990 Acc: 0.0033
-Training complete in 109m 49s
-
-Epoch 20/59
-----------
-train Loss: 0.0036 Acc: 0.9994
-val Loss: 11.0607 Acc: 0.0024
-Training complete in 115m 20s
-
-Epoch 21/59
-----------
-train Loss: 0.0035 Acc: 0.9994
-val Loss: 10.9524 Acc: 0.0018
-Training complete in 120m 51s
-
-Epoch 22/59
-----------
-train Loss: 0.0034 Acc: 0.9994
-val Loss: 10.9939 Acc: 0.0024
-Training complete in 126m 22s
-
-Epoch 23/59
-----------
-train Loss: 0.0034 Acc: 0.9994
-val Loss: 10.9453 Acc: 0.0027
-Training complete in 131m 52s
-
-Epoch 24/59
-----------
-train Loss: 0.0033 Acc: 0.9994
-val Loss: 10.9045 Acc: 0.0027
-Training complete in 137m 25s
-
-Epoch 25/59
-----------
-train Loss: 0.0033 Acc: 0.9994
-val Loss: 10.8787 Acc: 0.0030
-Training complete in 142m 59s
-
-Epoch 26/59
-----------
-train Loss: 0.0032 Acc: 0.9994
-val Loss: 10.8623 Acc: 0.0030
-Training complete in 148m 30s
-
-Epoch 27/59
-----------
-train Loss: 0.0032 Acc: 0.9994
-val Loss: 10.8603 Acc: 0.0027
-Training complete in 154m 2s
-
-Epoch 28/59
-----------
-train Loss: 0.0031 Acc: 0.9994
-val Loss: 10.8058 Acc: 0.0027
-Training complete in 159m 33s
-
-Epoch 29/59
-----------
-train Loss: 0.0031 Acc: 0.9994
-val Loss: 10.7511 Acc: 0.0024
-Training complete in 165m 8s
-
-Epoch 30/59
-----------
-train Loss: 0.0030 Acc: 0.9994
-val Loss: 10.7170 Acc: 0.0024
-Training complete in 170m 40s
-
-Epoch 31/59
-----------
-train Loss: 0.0030 Acc: 0.9994
-val Loss: 10.7232 Acc: 0.0027
-Training complete in 176m 11s
-
-Epoch 32/59
-----------
-train Loss: 0.0030 Acc: 0.9994
-val Loss: 10.7171 Acc: 0.0027
-Training complete in 181m 45s
-
-Epoch 33/59
-----------
-train Loss: 0.0030 Acc: 0.9994
-val Loss: 10.6294 Acc: 0.0027
-Training complete in 187m 16s
-
-Epoch 34/59
-----------
-train Loss: 0.0030 Acc: 0.9994
-val Loss: 10.6435 Acc: 0.0027
-Training complete in 192m 47s
-
-Epoch 35/59
-----------
-train Loss: 0.0029 Acc: 0.9994
-val Loss: 10.5860 Acc: 0.0027
-Training complete in 198m 19s
-
-Epoch 36/59
-----------
-train Loss: 0.0029 Acc: 0.9994
-val Loss: 10.5761 Acc: 0.0027
-Training complete in 203m 50s
-
-Epoch 37/59
-----------
-train Loss: 0.0029 Acc: 0.9994
-val Loss: 10.5089 Acc: 0.0027
-Training complete in 209m 21s
-
-Epoch 38/59
-----------
-train Loss: 0.0029 Acc: 0.9994
-val Loss: 10.4462 Acc: 0.0024
-Training complete in 214m 52s
-
-Epoch 39/59
-----------
-train Loss: 0.0029 Acc: 0.9994
-val Loss: 10.4812 Acc: 0.0027
-Training complete in 220m 27s
-
-Epoch 40/59
-----------
-train Loss: 0.0028 Acc: 0.9994

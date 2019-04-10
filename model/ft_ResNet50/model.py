@@ -96,7 +96,7 @@ class ft_net(nn.Module):
 	# after reranking:
 	# top1:0.889549 top5:0.936758 top10:0.951306 mAP:0.829203
 	
-	def __init__(self, class_num, attr_num=30, droprate=0.5, stride=1, weight_avg=False):
+	def __init__(self, class_num, attr_num=30, droprate=0.5, stride=1,):
 		super(ft_net, self).__init__()
 		self.attr_num = attr_num
 		model_ft = models.resnet50(pretrained=True)
@@ -105,9 +105,11 @@ class ft_net(nn.Module):
 			# Rank@1: 0.878266 Rank@5: 0.952197 Rank@10: 0.969418 mAP: 0.702516
 			model_ft.layer4[0].downsample[0].stride = (1, 1)
 			model_ft.layer4[0].conv2.stride = (1, 1)
+		self.branch2_layer4 = model_ft.layer4
 		model_ft.avgpool = nn.AdaptiveAvgPool2d((1, 1))
 		self.model = model_ft
 		self.num_ftrs = 2048
+		self.attr_weighted_pooling = weighted_avg_pooling(num_ftrs=self.num_ftrs)  # create an instance
 		
 		# torch.nn.KLDivLoss
 		
@@ -117,10 +119,11 @@ class ft_net(nn.Module):
 			if c == self.attr_num:  # for identity classification
 				self.__setattr__('class_%d' % c, ClassBlock(self.num_ftrs, class_num, 0, num_bottleneck=256))
 			else:
-				self.__setattr__('class_%d' % c, nn.Sequential(weighted_avg_pooling(num_ftrs=self.num_ftrs),
-				                                               ClassBlock(self.num_ftrs, 2, droprate=0,
-				                                                          num_bottleneck=128,
-				                                                          relu=False, bnorm=True)))
+				self.__setattr__('class_%d' % c, nn.Sequential(
+					# weighted_avg_pooling(num_ftrs=self.num_ftrs),
+					ClassBlock(self.num_ftrs, 2, droprate=0,
+					           num_bottleneck=128,
+					           relu=False, bnorm=True)))
 	
 	def forward(self, x):
 		x = self.model.conv1(x)
@@ -130,11 +133,16 @@ class ft_net(nn.Module):
 		x = self.model.layer1(x)
 		x = self.model.layer2(x)
 		x = self.model.layer3(x)  # batch * 1024 * 18 * 9
-		x = self.model.layer4(x)  # batch * 2048 * 9 * 5
 		attr_x = x
-		# attr_x = self.model.layer4(attr_x)
+		x = self.model.layer4(x)  # batch * 2048 * 9 * 5
 		x = self.model.avgpool(x)  # average pooling for id feature
 		x = x.view(x.size(0), x.size(1))  # batch * 2048
+		
+		attr_x = self.branch2_layer4(attr_x)
+		
+		attr_x = self.attr_weighted_pooling(attr_x)
+		# attr_x = self.model.layer4(attr_x)
+
 		# x = self.classifier(x)
 		# return list(self.__getattr__('class_%d' % c)(x) for c in range(self.attr_num + 1)), x
 		attr_output = list(self.__getattr__('class_%d' % c)(attr_x) for c in range(self.attr_num))
