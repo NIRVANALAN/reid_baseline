@@ -64,7 +64,7 @@ class ClassBlock(nn.Module):
 			x = self.classifier(x)
 			return x, f
 		else:
-			x = self.dropout(x)
+			# x = self.dropout(x)
 			# if self.part_detector_weighted:
 			# 	weight = self.part_detector_block(x)
 			# 	x = weight * x / (x.shape[0] * x.shape[1])
@@ -116,14 +116,11 @@ class ft_net(nn.Module):
 		for c in range(self.attr_num + 1):
 			if c == self.attr_num:  # for identity classification
 				self.__setattr__('class_%d' % c, ClassBlock(self.num_ftrs, class_num, 0, num_bottleneck=256))
-			# nn.Sequential(nn.Linear(self.num_ftrs, num_bottleneck),
-			# 		   nn.BatchNorm1d(num_bottleneck),
-			# 		   nn.LeakyReLU(0.1),
-			# 		   nn.Dropout(p=dropout),
-			# 		   nn.Linear(num_bottleneck, self.id_num)))
 			else:
 				self.__setattr__('class_%d' % c, nn.Sequential(weighted_avg_pooling(num_ftrs=self.num_ftrs),
-				                                               ClassBlock(self.num_ftrs, 2, 0, num_bottleneck=128)))
+				                                               ClassBlock(self.num_ftrs, 2, droprate=0,
+				                                                          num_bottleneck=128,
+				                                                          relu=False, bnorm=True)))
 	
 	def forward(self, x):
 		x = self.model.conv1(x)
@@ -133,11 +130,10 @@ class ft_net(nn.Module):
 		x = self.model.layer1(x)
 		x = self.model.layer2(x)
 		x = self.model.layer3(x)  # batch * 1024 * 18 * 9
-		attr_x = x  # 2 branch
 		x = self.model.layer4(x)  # batch * 2048 * 9 * 5
-		attr_x = self.model.layer4(attr_x)
-		
-		x = self.model.avgpool(x)
+		attr_x = x
+		# attr_x = self.model.layer4(attr_x)
+		x = self.model.avgpool(x)  # average pooling for id feature
 		x = x.view(x.size(0), x.size(1))  # batch * 2048
 		# x = self.classifier(x)
 		# return list(self.__getattr__('class_%d' % c)(x) for c in range(self.attr_num + 1)), x
@@ -167,7 +163,8 @@ class ft_net_dense(nn.Module):
 
 
 # Define the ResNet50-based Model (Middle-Concat)
-# In the spirit of "The Devil is in the Middle: Exploiting Mid-level Representations for Cross-Domain Instance Matching." Yu, Qian, et al. arXiv:1711.08106 (2017).
+# In the spirit of "The Devil is in the Middle:
+# Exploiting Mid-level Representations for Cross-Domain Instance Matching." Yu, Qian, et al. arXiv:1711.08106 (2017).
 class ft_net_middle(nn.Module):
 	
 	def __init__(self, class_num, droprate=0.5):

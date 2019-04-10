@@ -21,6 +21,7 @@ from torchvision import datasets, transforms
 import torch.backends.cudnn as cudnn
 import matplotlib
 
+import pdb
 matplotlib.use('agg')
 # from PIL import Image
 
@@ -72,7 +73,7 @@ for str_id in str_ids:
 
 # set gpu ids
 if len(gpu_ids) > 0:
-	torch.cuda.set_device(gpu_ids[0])
+#	torch.cuda.set_device(gpu_ids[0])
 	cudnn.benchmark = True
 
 # two dataset dict
@@ -187,7 +188,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25, APR_facto
 	# best_model_wts = model.state_dict()
 	# best_acc = 0.0
 	start = 0
-	if load:
+#	pdb.set_trace()
+	if load != 'None':
+		print(load)
 		model.load_state_dict(torch.load(load, map_location=torch.device("cuda") if use_gpu else torch.device("cpu")))
 		start = int(load.split('/')[2].split('_')[1].split('.')[0])
 		print('loading from: {}'.format(load))

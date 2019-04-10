@@ -1,6 +1,6 @@
 This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0
-[Resize(size=(256, 128), interpolation=PIL.Image.BICUBIC), Pad(padding=10, fill=0, padding_mode=constant), RandomCrop(size=(256, 128), padding=0), RandomHorizontalFlip(p=0.5), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])]
-9.5367431640625e-07
+[Resize(size=(256, 128), interpolation=PIL.Image.BICUBIC), Pad(padding=10, fill=0, padding_mode=constant), RandomCrop(size=(256, 128), padding=0), RandomHorizontalFlip(p=0.5), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]), <random_erasing.RandomErasing object at 0x7f17a46a7e10>]
+1.6689300537109375e-06
 ft_net(
   (model): ResNet(
     (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
@@ -146,13 +146,13 @@ ft_net(
       (0): Bottleneck(
         (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
         (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
         (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
         (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
         (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
         (relu): ReLU(inplace)
         (downsample): Sequential(
-          (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
           (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
         )
       )
@@ -729,191 +729,195 @@ ft_net(
     )
   )
 )
-loading from: model/ft_ResNet50/net_29.pth
+Epoch 0/59
+----------
+train Loss: 3.9537 Acc: 0.3001
+val Loss: 8.8009 Acc: 0.0018
+Training complete in 5m 60s
+
+Epoch 1/59
+----------
+train Loss: 1.1403 Acc: 0.7629
+val Loss: 10.3691 Acc: 0.0018
+Training complete in 11m 58s
+
+Epoch 2/59
+----------
+train Loss: 0.4756 Acc: 0.8971
+val Loss: 11.4375 Acc: 0.0018
+Training complete in 17m 57s
+
+Epoch 3/59
+----------
+train Loss: 0.2701 Acc: 0.9409
+val Loss: 12.1273 Acc: 0.0015
+Training complete in 24m 31s
+
+Epoch 4/59
+----------
+train Loss: 0.1842 Acc: 0.9600
+val Loss: 12.9986 Acc: 0.0033
+Training complete in 30m 44s
+
+Epoch 5/59
+----------
+train Loss: 0.1193 Acc: 0.9760
+val Loss: 12.7711 Acc: 0.0018
+Training complete in 37m 25s
+
+Epoch 6/59
+----------
+train Loss: 0.0766 Acc: 0.9855
+val Loss: 13.0661 Acc: 0.0024
+Training complete in 43m 22s
+
+Epoch 7/59
+----------
+train Loss: 0.0516 Acc: 0.9913
+val Loss: 13.4037 Acc: 0.0036
+Training complete in 49m 21s
+
+Epoch 8/59
+----------
+train Loss: 0.0408 Acc: 0.9930
+val Loss: 13.7122 Acc: 0.0030
+Training complete in 55m 19s
+
+Epoch 9/59
+----------
+train Loss: 0.0310 Acc: 0.9950
+val Loss: 13.3125 Acc: 0.0024
+Training complete in 61m 52s
+
+Epoch 10/59
+----------
+train Loss: 0.0258 Acc: 0.9955
+val Loss: 13.7300 Acc: 0.0021
+Training complete in 67m 51s
+
+Epoch 11/59
+----------
+train Loss: 0.0144 Acc: 0.9979
+val Loss: 13.6910 Acc: 0.0027
+Training complete in 73m 50s
+
+Epoch 12/59
+----------
+train Loss: 0.0126 Acc: 0.9983
+val Loss: 13.6482 Acc: 0.0021
+Training complete in 80m 22s
+
+Epoch 13/59
+----------
+train Loss: 0.0097 Acc: 0.9990
+val Loss: 13.4726 Acc: 0.0021
+Training complete in 88m 1s
+
+Epoch 14/59
+----------
+train Loss: 0.0071 Acc: 0.9989
+val Loss: 13.6455 Acc: 0.0021
+Training complete in 94m 5s
+
+Epoch 15/59
+----------
+train Loss: 0.0057 Acc: 0.9993
+val Loss: 13.7331 Acc: 0.0024
+Training complete in 100m 4s
+
+Epoch 16/59
+----------
+train Loss: 0.0060 Acc: 0.9991
+val Loss: 13.3602 Acc: 0.0033
+Training complete in 106m 6s
+
+Epoch 17/59
+----------
+train Loss: 0.0049 Acc: 0.9994
+val Loss: 13.4238 Acc: 0.0021
+Training complete in 112m 8s
+
+Epoch 18/59
+----------
+train Loss: 0.0046 Acc: 0.9994
+val Loss: 13.3240 Acc: 0.0027
+Training complete in 118m 9s
+
+Epoch 19/59
+----------
+train Loss: 0.0043 Acc: 0.9994
+val Loss: 13.2878 Acc: 0.0024
+Training complete in 124m 13s
+
+Epoch 20/59
+----------
+train Loss: 0.0040 Acc: 0.9994
+val Loss: 13.1907 Acc: 0.0027
+Training complete in 130m 14s
+
+Epoch 21/59
+----------
+train Loss: 0.0039 Acc: 0.9994
+val Loss: 13.1813 Acc: 0.0030
+Training complete in 136m 15s
+
+Epoch 22/59
+----------
+train Loss: 0.0037 Acc: 0.9994
+val Loss: 13.1451 Acc: 0.0027
+Training complete in 142m 24s
+
+Epoch 23/59
+----------
+train Loss: 0.0036 Acc: 0.9994
+val Loss: 13.0615 Acc: 0.0024
+Training complete in 148m 26s
+
+Epoch 24/59
+----------
+train Loss: 0.0037 Acc: 0.9994
+val Loss: 12.9815 Acc: 0.0024
+Training complete in 154m 27s
+
+Epoch 25/59
+----------
+train Loss: 0.0036 Acc: 0.9994
+val Loss: 12.8969 Acc: 0.0030
+Training complete in 160m 34s
+
+Epoch 26/59
+----------
+train Loss: 0.0035 Acc: 0.9994
+val Loss: 12.8150 Acc: 0.0027
+Training complete in 166m 36s
+
+Epoch 27/59
+----------
+train Loss: 0.0035 Acc: 0.9994
+val Loss: 12.7608 Acc: 0.0024
+Training complete in 172m 45s
+
+Epoch 28/59
+----------
+train Loss: 0.0035 Acc: 0.9994
+val Loss: 12.7568 Acc: 0.0024
+Training complete in 178m 51s
+
 Epoch 29/59
 ----------
-train Loss: 1.4563 Acc: 0.6517
-val Loss: 14.6538 Acc: 0.0015
-Training complete in 3m 10s
+train Loss: 0.0038 Acc: 0.9994
+val Loss: 12.6575 Acc: 0.0033
+Training complete in 184m 56s
 
 Epoch 30/59
 ----------
-train Loss: 1.1302 Acc: 0.6980
-val Loss: 14.5281 Acc: 0.0018
-Training complete in 6m 9s
+train Loss: 0.0035 Acc: 0.9994
+val Loss: 12.4939 Acc: 0.0027
+Training complete in 190m 57s
 
 Epoch 31/59
 ----------
-train Loss: 0.6335 Acc: 0.8224
-val Loss: 16.3483 Acc: 0.0024
-Training complete in 9m 8s
-
-Epoch 32/59
-----------
-train Loss: 0.3948 Acc: 0.8843
-val Loss: 16.0326 Acc: 0.0021
-Training complete in 12m 9s
-
-Epoch 33/59
-----------
-train Loss: 0.3141 Acc: 0.9045
-val Loss: 16.5549 Acc: 0.0033
-Training complete in 15m 11s
-
-Epoch 34/59
-----------
-train Loss: 0.2783 Acc: 0.9168
-val Loss: 17.0615 Acc: 0.0024
-Training complete in 18m 15s
-
-Epoch 35/59
-----------
-train Loss: 0.2269 Acc: 0.9287
-val Loss: 16.8554 Acc: 0.0039
-Training complete in 21m 15s
-
-Epoch 36/59
-----------
-train Loss: 0.1885 Acc: 0.9436
-val Loss: 17.8153 Acc: 0.0027
-Training complete in 24m 16s
-
-Epoch 37/59
-----------
-train Loss: 0.1517 Acc: 0.9538
-val Loss: 17.6150 Acc: 0.0021
-Training complete in 27m 17s
-
-Epoch 38/59
-----------
-train Loss: 0.1149 Acc: 0.9655
-val Loss: 17.6000 Acc: 0.0024
-Training complete in 30m 17s
-
-Epoch 39/59
-----------
-train Loss: 0.0961 Acc: 0.9714
-val Loss: 17.7173 Acc: 0.0021
-Training complete in 33m 23s
-
-Epoch 40/59
-----------
-train Loss: 0.0948 Acc: 0.9723
-val Loss: 17.5964 Acc: 0.0024
-Training complete in 36m 23s
-
-Epoch 41/59
-----------
-train Loss: 0.0780 Acc: 0.9774
-val Loss: 17.9324 Acc: 0.0024
-Training complete in 39m 25s
-
-Epoch 42/59
-----------
-train Loss: 0.0507 Acc: 0.9865
-val Loss: 17.8219 Acc: 0.0030
-Training complete in 43m 60s
-
-Epoch 43/59
-----------
-train Loss: 0.0568 Acc: 0.9841
-val Loss: 17.8082 Acc: 0.0027
-Training complete in 47m 1s
-
-Epoch 44/59
-----------
-train Loss: 0.0428 Acc: 0.9876
-val Loss: 17.2867 Acc: 0.0024
-Training complete in 50m 27s
-
-Epoch 45/59
-----------
-train Loss: 0.0359 Acc: 0.9900
-val Loss: 17.3360 Acc: 0.0027
-Training complete in 54m 58s
-
-Epoch 46/59
-----------
-train Loss: 0.0457 Acc: 0.9859
-val Loss: 17.2530 Acc: 0.0027
-Training complete in 57m 58s
-
-Epoch 47/59
-----------
-train Loss: 0.0315 Acc: 0.9903
-val Loss: 17.4741 Acc: 0.0021
-Training complete in 60m 58s
-
-Epoch 48/59
-----------
-train Loss: 0.0215 Acc: 0.9951
-val Loss: 17.2709 Acc: 0.0030
-Training complete in 63m 58s
-
-Epoch 49/59
-----------
-train Loss: 0.0193 Acc: 0.9951
-val Loss: 17.2005 Acc: 0.0036
-Training complete in 66m 59s
-
-Epoch 50/59
-----------
-train Loss: 0.0150 Acc: 0.9968
-val Loss: 16.8672 Acc: 0.0030
-Training complete in 70m 1s
-
-Epoch 51/59
-----------
-train Loss: 0.0113 Acc: 0.9977
-val Loss: 16.8426 Acc: 0.0042
-Training complete in 72m 60s
-
-Epoch 52/59
-----------
-train Loss: 0.0131 Acc: 0.9974
-val Loss: 16.8672 Acc: 0.0030
-Training complete in 75m 59s
-
-Epoch 53/59
-----------
-train Loss: 0.0141 Acc: 0.9964
-val Loss: 16.8303 Acc: 0.0027
-Training complete in 79m 29s
-
-Epoch 54/59
-----------
-train Loss: 0.0095 Acc: 0.9980
-val Loss: 16.4306 Acc: 0.0030
-Training complete in 82m 42s
-
-Epoch 55/59
-----------
-train Loss: 0.0076 Acc: 0.9982
-val Loss: 16.3573 Acc: 0.0033
-Training complete in 85m 40s
-
-Epoch 56/59
-----------
-train Loss: 0.0057 Acc: 0.9990
-val Loss: 16.3331 Acc: 0.0024
-Training complete in 88m 40s
-
-Epoch 57/59
-----------
-train Loss: 0.0066 Acc: 0.9987
-val Loss: 16.1955 Acc: 0.0021
-Training complete in 91m 38s
-
-Epoch 58/59
-----------
-train Loss: 0.0051 Acc: 0.9988
-val Loss: 15.8821 Acc: 0.0027
-Training complete in 94m 37s
-
-Epoch 59/59
-----------
-train Loss: 0.0055 Acc: 0.9989
-val Loss: 15.7482 Acc: 0.0030
-Training complete in 97m 44s
-
-Training complete in 97m 44s
+This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0
+-------test-----------
+torch.Size([3368, 256])
+Rank@1:0.867280 Rank@5:0.957245 Rank@10:0.973278 mAP:0.685173
